@@ -1,7 +1,7 @@
 ﻿using Task.Application.Common.Response;
 using Task.Application.Features.ViewModels;
 
-namespace Task.Application.Features.Commands
+namespace Task.Application.Features.Commands.Employee
 {
     public class AddEmployeeCommandValidation : AbstractValidator<AddEmployeeCommand>
     {
@@ -18,5 +18,5 @@ namespace Task.Application.Features.Commands
 
         }
     }
-   
+
 }

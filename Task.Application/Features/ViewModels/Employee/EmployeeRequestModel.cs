@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Task.Domain.Entities;
 
-namespace Task.Application.Features.ViewModels
+namespace Task.Application.Features.ViewModels.Employee
 {
     public class EmployeeRequestModel
     {
@@ -23,7 +23,7 @@ namespace Task.Application.Features.ViewModels
         {
             public Mapping()
             {
-                CreateMap<EmployeeRequestModel, Employee>().ReverseMap();
+                CreateMap<EmployeeRequestModel, Domain.Entities.Employee>().ReverseMap();
             }
         }
     }

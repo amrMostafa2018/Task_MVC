@@ -1,0 +1,54 @@
+﻿@using Task.Application.Features.ViewModels.Employee
+@model EmployeeRequestModel
+
+<form id="employeeForm">
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Salary)
+        @Html.TextBoxFor(m => m.Salary, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Department")
+        @Html.DropDownListFor(m => m.DepartmentId, ViewBag.Departments as SelectList, "-- Select Department --", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Manager")
+        @Html.DropDownListFor(m => m.ManagerId, ViewBag.Managers as SelectList, "-- Select Manager --", new { @class = "form-control" })
+    </div>
+
+    
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</form>
+
+<script>
+    $("#employeeForm").submit(function (e) {
+        e.preventDefault();
+        var form = $(this);
+        console.log("form :", form.serialize());
+        debugger
+        $.ajax({
+            url: form.find("input[name='Id']").val() == 0 ? '/Employee/Create' : '/Employee/Edit',
+            method: 'POST',
+            data: form.serialize(),
+            success: function (res) {
+                if (res.success) {
+                    $('#employeeModal').modal('hide');
+                    loadEmployees();
+                } else {
+                    $("#modalContent").html(res);
+                }
+            }
+        });
+    });
+</script>

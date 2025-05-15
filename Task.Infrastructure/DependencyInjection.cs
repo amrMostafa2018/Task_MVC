@@ -42,7 +42,7 @@ namespace Task.Infrastructure
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(IReadRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IEmployeeService, EmployeeService>();
-            //services.AddScoped<ICVManagerService, CVManagerService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
 
 
             return services;
