@@ -7,21 +7,22 @@ namespace Task.Application.Features.Commands
     {
         public int Id { get; set; }
     }
-    public class DeleteCVCommandHandler : IRequestHandler<DeleteCVCommand, ResponseVM>
+    public class DeleteCVCommandHandler 
+        //: IRequestHandler<DeleteCVCommand, ResponseVM>
     {
 
-        private readonly ICVManagerService _CVManagerService;
+        //private readonly ICVManagerService _CVManagerService;
 
-        public DeleteCVCommandHandler(ICVManagerService CVManagerService)
-        {
-            _CVManagerService = CVManagerService;
-        }
-        public async Task<ResponseVM> Handle(DeleteCVCommand request, CancellationToken cancellationToken)
-        {
-            return new ResponseVM()
-            {
-                Data = await _CVManagerService.DeleteCV(request.Id),
-            };
-        }
+        //public DeleteCVCommandHandler(ICVManagerService CVManagerService)
+        //{
+        //    _CVManagerService = CVManagerService;
+        //}
+        //public async Task<ResponseVM> Handle(DeleteCVCommand request, CancellationToken cancellationToken)
+        //{
+        //    return new ResponseVM()
+        //    {
+        //        Data = await _CVManagerService.DeleteCV(request.Id),
+        //    };
+        //}
     }
 }

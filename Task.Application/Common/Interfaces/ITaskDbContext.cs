@@ -1,6 +1,6 @@
 ﻿namespace Task.Application.Common.Interfaces
 {
-    public interface ICVDbContext
+    public interface ITaskDbContext
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

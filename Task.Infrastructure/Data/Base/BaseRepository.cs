@@ -5,7 +5,7 @@ namespace Task.Infrastructure.Data.Base
 {
     public class BaseRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot
     {
-        public BaseRepository(CVDbContext dbContext) : base(dbContext)
+        public BaseRepository(TaskDbContext dbContext) : base(dbContext)
         {
         }
     }

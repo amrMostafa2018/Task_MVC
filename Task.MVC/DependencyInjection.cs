@@ -14,7 +14,7 @@ namespace Task.MVC
             services.AddHttpContextAccessor();
 
             services.AddHealthChecks()
-                .AddDbContextCheck<CVDbContext>();
+                .AddDbContextCheck<TaskDbContext>();
 
             services.AddExceptionHandler<CustomExceptionHandler>();
 

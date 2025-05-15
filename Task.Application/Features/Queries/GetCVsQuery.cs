@@ -8,17 +8,18 @@ namespace Task.Application.Features.Queries
     {
 
     }
-    public class GGetCVsQueryHandler : IRequestHandler<GetCVsQuery, ResponseVM<List<CVModel>>>
+    public class GGetCVsQueryHandler
+        //: IRequestHandler<GetCVsQuery, ResponseVM<List<CVModel>>>
     {
-        private readonly ICVManagerService _CVManagerService;
-        public GGetCVsQueryHandler(ICVManagerService CVManagerService)
-        {
-            _CVManagerService = CVManagerService;
-        }
+        //private readonly ICVManagerService _CVManagerService;
+        //public GGetCVsQueryHandler(ICVManagerService CVManagerService)
+        //{
+        //    _CVManagerService = CVManagerService;
+        //}
 
-        public async Task<ResponseVM<List<CVModel>>> Handle(GetCVsQuery request, CancellationToken cancellationToken)
-        {
-            return await _CVManagerService.GetCVs();
-        }
+        //public async Task<ResponseVM<List<CVModel>>> Handle(GetCVsQuery request, CancellationToken cancellationToken)
+        //{
+        //    return await _CVManagerService.GetCVs();
+        //}
     }
 }

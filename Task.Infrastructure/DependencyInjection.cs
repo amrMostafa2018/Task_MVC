@@ -22,14 +22,14 @@ namespace Task.Infrastructure
 
             var connectionString = configuration.GetConnectionString("ConnectionString");
             Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
-            services.AddDbContext<CVDbContext>((sp, options) =>
+            services.AddDbContext<TaskDbContext>((sp, options) =>
             {
                 options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
                 options.UseSqlServer(connectionString);
             });
 
-            services.AddScoped<ICVDbContext>(provider => provider.GetRequiredService<CVDbContext>());
+            services.AddScoped<ITaskDbContext>(provider => provider.GetRequiredService<TaskDbContext>());
 
             services.AddScoped<BasicDbContextInitialiser>();
 
@@ -41,8 +41,8 @@ namespace Task.Infrastructure
 
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddScoped(typeof(IReadRepository<>), typeof(BaseRepository<>));
-            services.AddScoped<ICVManagerService, CVManagerService>();
-
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            //services.AddScoped<ICVManagerService, CVManagerService>();
 
 
             return services;

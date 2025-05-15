@@ -24,9 +24,9 @@ namespace Task.Infrastructure.Data
     public class BasicDbContextInitialiser
     {
         private readonly ILogger<BasicDbContextInitialiser> _logger;
-        private readonly CVDbContext _context;
+        private readonly TaskDbContext _context;
 
-        public BasicDbContextInitialiser(ILogger<BasicDbContextInitialiser> logger, CVDbContext context)
+        public BasicDbContextInitialiser(ILogger<BasicDbContextInitialiser> logger, TaskDbContext context)
         {
             _logger = logger;
             _context = context;

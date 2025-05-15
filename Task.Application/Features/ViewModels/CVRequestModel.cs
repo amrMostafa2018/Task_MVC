@@ -17,9 +17,9 @@ namespace Task.Application.Features.ViewModels
         {
             public Mapping()
             {
-                CreateMap<CVRequestModel, CV>().ReverseMap();
-                CreateMap<CVRequestModel, PersonalInformation>().ReverseMap();
-                CreateMap<CVRequestModel, ExperienceInformation>().ReverseMap();
+               // CreateMap<CVRequestModel, CV>().ReverseMap();
+                //CreateMap<CVRequestModel, PersonalInformation>().ReverseMap();
+                //CreateMap<CVRequestModel, ExperienceInformation>().ReverseMap();
             }
         }
     }
