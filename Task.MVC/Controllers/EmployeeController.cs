@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Task.Application.Features.Commands.Employee;
 using Task.Application.Features.Queries.Department;
 using Task.Application.Features.Queries.Employee;
@@ -31,7 +32,7 @@ namespace Task.MVC.Controllers
             ViewBag.Departments = new SelectList(departments.Data, "Id", "DepartmentName");
             var managers = await _mediator.Send(new GetManagersQuery());
             ViewBag.Managers = new SelectList(managers.Data, "Id", "ManagerName");
-            ViewBag.title = "Add Employee";
+            ViewBag.titlePage = "Add Employee";
             return PartialView("_EmployeeForm", new EmployeeRequestModel());
         }
 
@@ -45,6 +46,50 @@ namespace Task.MVC.Controllers
             }
 
             return PartialView("_EmployeeForm", employeeRequestModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var departments = await _mediator.Send(new GetDepartmentsQuery());
+            ViewBag.Departments = new SelectList(departments.Data, "Id", "DepartmentName");
+            var managers = await _mediator.Send(new GetManagersQuery());
+            ViewBag.Managers = new SelectList(managers.Data, "Id", "ManagerName");
+            ViewBag.titlePage = "Edit Employee";
+            var emp = await _mediator.Send(new GetEmployeeByIdQuery() { Id = id });
+            return PartialView("_EmployeeForm", emp.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EmployeeRequestModel emp)
+        {
+            if (ModelState.IsValid)
+            {
+                var data = await _mediator.Send(new EditEmployeeCommand { employeeRequest = emp });
+                return Json(new { success = true });
+            }
+
+            return PartialView("_EmployeeForm", emp);
+
+            //if (ImageFile != null)
+            //{
+            //    var path = Path.Combine(_env.WebRootPath, "images", ImageFile.FileName);
+            //    using var stream = new FileStream(path, FileMode.Create);
+            //    await ImageFile.CopyToAsync(stream);
+            //    dbEmp.ImagePath = "/images/" + ImageFile.FileName;
+            //}
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var data = await _mediator.Send(new DeleteEmployeeCommand { Id =  id });
+            return Json(new { success = true });
+        }
+
+        public async Task<IActionResult> Search(string searchText)
+        {
+            var response = await _mediator.Send(new GetFilterEmployeesQuery() { search = searchText });
+            return PartialView("_EmployeeList", response.Data);
         }
     }
 }

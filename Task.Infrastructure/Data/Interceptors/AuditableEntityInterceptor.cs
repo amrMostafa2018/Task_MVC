@@ -51,6 +51,8 @@ namespace Task.Infrastructure.Data.Interceptors
                     }
                     else
                     {
+                        entry.Entity.CreatedById = "1";
+                        entry.Entity.CreatedByName = "test";
                         //TODO: Add UserId in case update
                         entry.Entity.LastModifiedByName = "test";
                         entry.Entity.LastModified = DateTime.Now;
