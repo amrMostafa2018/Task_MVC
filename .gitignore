@@ -242,3 +242,4 @@ src/WebUI/ClientApp/package-lock.json
 /obj/Debug/net8.0
 /obj/Debug/net8.0/MVCCoreTask.AssemblyInfo.cs
 /.vs/MVCCoreTask/
+/Task.MVC/Logs
