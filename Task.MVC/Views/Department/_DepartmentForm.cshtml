@@ -18,8 +18,6 @@
     $("#DepartmentForm").submit(function (e) {
         e.preventDefault();
         var form = $(this);
-        console.log("form :", form.serialize());
-        debugger
         $.ajax({
             url: form.find("input[name='Id']").val() == 0 ? '/Department/Create' : '/Department/Edit',
             method: 'POST',

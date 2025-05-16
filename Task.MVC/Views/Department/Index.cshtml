@@ -4,7 +4,7 @@
 
 <h2>Departments</h2>
 <button class="btn btn-primary mb-3" onclick="createDepartment()">Add Department</button>
-
+<input type="text" id="searchInput" placeholder="Search..." />
 <div id="DepartmentList"></div>
 
 
@@ -31,8 +31,8 @@
 
             $("#searchInput").on("keyup", function () {
                 let searchText = $(this).val();
-                $.get("/Employee/Search?searchText=" + searchText, function (data) {
-                    $("#employeeList").html(data);
+                $.get("/Department/Search?searchText=" + searchText, function (data) {
+                    $("#DepartmentList").html(data);
                 });
             });
         });
@@ -68,6 +68,17 @@
                     }
                 });
             }
+        }
+
+        function viewSummaryDepartment(id){
+           $.ajax({
+            url: "/Department/Summary/" + id,
+            method: 'GET',
+            success: function (data) {
+                $("#modalContent").html(data);
+                $("#DepartmentModal").modal("show");
+            }
+          });
         }
 
         function closeModal() {

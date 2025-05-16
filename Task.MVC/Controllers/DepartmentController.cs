@@ -71,8 +71,15 @@ namespace Task.MVC.Controllers
 
         public async Task<IActionResult> Search(string searchText)
         {
-            var response = await _mediator.Send(new GetFilterEmployeesQuery() { search = searchText });
-            return PartialView("_EmployeeList", response.Data);
+            var response = await _mediator.Send(new GetFilterDepartmentQuery() { search = searchText });
+            return PartialView("_DepartmentList", response.Data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Summary(int id)
+        {
+            var result = await _mediator.Send(new GetDepartmentSummaryByIdQuery { Id = id });
+            return PartialView("_DepartmentSummary", result.Data);
         }
     }
 }

@@ -1,0 +1,23 @@
+﻿@using Task.Application.Features.ViewModels.Department
+@model DepartmentSummaryModel
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Employees</th>
+            <th>Total Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+       @*  @foreach (var dept in Model)
+        { *@
+         <tr>
+             <td>@Model.DepartmentName</td>
+            <td>@Model.EmployeeCount</td>
+            <td>@Model.TotalSalary.ToString("C")</td>
+        </tr>
+     @*        
+        } *@
+    </tbody>
+</table>
