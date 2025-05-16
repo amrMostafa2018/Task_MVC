@@ -1,0 +1,37 @@
+﻿@using Task.Application.Features.ViewModels.Department
+@model DepartmentModel
+
+<form id="DepartmentForm">
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+    
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</form>
+
+<script>
+    $("#DepartmentForm").submit(function (e) {
+        e.preventDefault();
+        var form = $(this);
+        console.log("form :", form.serialize());
+        debugger
+        $.ajax({
+            url: form.find("input[name='Id']").val() == 0 ? '/Department/Create' : '/Department/Edit',
+            method: 'POST',
+            data: form.serialize(),
+            success: function (res) {
+                if (res.success) {
+                    $('#DepartmentModal').modal('hide');
+                    loadDepartments();
+                } else {
+                    $("#modalContent").html(res);
+                }
+            }
+        });
+    });
+</script>

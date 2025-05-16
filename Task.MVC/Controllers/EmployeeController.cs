@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Task.Application.Features.Commands.Employee;
 using Task.Application.Features.Queries.Department;
 using Task.Application.Features.Queries.Employee;
@@ -25,11 +24,12 @@ namespace Task.MVC.Controllers
             var response = await _mediator.Send(new GetEmployeesQuery());
             return PartialView("_EmployeeList", response.Data);
         }
+
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             var departments = await _mediator.Send(new GetDepartmentsQuery());
-            ViewBag.Departments = new SelectList(departments.Data, "Id", "DepartmentName");
+            ViewBag.Departments = new SelectList(departments.Data, "Id", "Name");
             var managers = await _mediator.Send(new GetManagersQuery());
             ViewBag.Managers = new SelectList(managers.Data, "Id", "ManagerName");
             ViewBag.titlePage = "Add Employee";
@@ -51,13 +51,13 @@ namespace Task.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var departments = await _mediator.Send(new GetDepartmentsQuery());
-            ViewBag.Departments = new SelectList(departments.Data, "Id", "DepartmentName");
-            var managers = await _mediator.Send(new GetManagersQuery());
-            ViewBag.Managers = new SelectList(managers.Data, "Id", "ManagerName");
-            ViewBag.titlePage = "Edit Employee";
-            var emp = await _mediator.Send(new GetEmployeeByIdQuery() { Id = id });
-            return PartialView("_EmployeeForm", emp.Data);
+                var departments = await _mediator.Send(new GetDepartmentsQuery());
+                ViewBag.Departments = new SelectList(departments.Data, "Id", "Name");
+                var managers = await _mediator.Send(new GetManagersQuery());
+                ViewBag.Managers = new SelectList(managers.Data, "Id", "ManagerName");
+                ViewBag.titlePage = "Edit Employee";
+                var emp = await _mediator.Send(new GetEmployeeByIdQuery() { Id = id });
+                return PartialView("_EmployeeForm", emp.Data);
         }
 
         [HttpPost]

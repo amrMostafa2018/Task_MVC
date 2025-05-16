@@ -1,10 +1,12 @@
 ﻿using Ardalis.SharedKernel;
 using AutoMapper;
+using FluentValidation.Results;
+using Task.Application.Common.Exceptions;
 using Task.Application.Common.Response;
 using Task.Application.Features.ViewModels.Department;
-using Task.Application.Features.ViewModels.Employee;
 using Task.Application.Interfaces;
 using Task.Domain.Entities;
+using Task.Infrastructure.Specifications.CVSpecifications;
 
 namespace Task.Infrastructure.Services
 {
@@ -20,13 +22,13 @@ namespace Task.Infrastructure.Services
         }
 
 
-        public async Task<ResponseVM> AddDepartment(EmployeeRequestModel employeeRequest)
+        public async Task<ResponseVM> AddDepartment(DepartmentModel departmentModel)
         {
-            var employeeEntity = _mapper.Map<Employee>(employeeRequest);
-           // await _repository.AddAsync(employeeEntity);
+            var departmentEntity = _mapper.Map<Department>(departmentModel);
+            await _repository.AddAsync(departmentEntity);
             return new ResponseVM
             {
-                Data = employeeEntity.Id
+                Data = departmentEntity.Id
             };
         }
 
@@ -38,6 +40,39 @@ namespace Task.Infrastructure.Services
             {
                 Data = Data
             };
+        }
+
+        public async Task<ResponseVM<DepartmentModel>> GetDepartmentById(int id)
+        {
+            var spec = new getDepartmentByIdSpec(id);
+            var GetBySpec = await _repository.GetBySpecAsync(spec);
+            var Data = _mapper.Map<DepartmentModel>(GetBySpec);
+            return new ResponseVM<DepartmentModel>()
+            {
+                Data = Data
+            };
+        }
+
+        public async Task<ResponseVM> EditDepartment(DepartmentModel departmentModel)
+        {
+            var departmentEntity = _mapper.Map<Department>(departmentModel);
+            await _repository.UpdateAsync(departmentEntity);
+            return new ResponseVM
+            {
+                Data = departmentEntity.Id
+            };
+        }
+
+        public async Task<bool> DeleteDepartment(int id)
+        {
+            var GetBySpec = new getDepartmentByIdSpec(id);
+            var dep = await _repository.GetBySpecAsync(GetBySpec);
+            if (dep == null)
+                throw new ValidationException(new ValidationFailure[] { new ValidationFailure("Get Department Error", $"Department with ID {id} : not exist") });
+            if(dep.Employees.Count > 0)
+                return false;
+            await _repository.DeleteAsync(dep);
+            return true;
         }
     }
 }

@@ -41,6 +41,27 @@ namespace Task.Infrastructure.Services
                 Data = Data
             };
         }
+        public async Task<ResponseVM<List<ManagerModel>>> GetManagers()
+        {
+            var spec = new getAllManagersSpec();
+            var managerList = await _repository.ListAsync(spec);
+            var Data = _mapper.Map<List<ManagerModel>>(managerList);
+            return new ResponseVM<List<ManagerModel>>()
+            {
+                Data = Data
+            };
+        }
+
+        public async Task<ResponseVM<List<EmployeeModel>>> GetFilterEmployees(string search)
+        {
+            var spec = new getFilterEmployeesSpec(search);
+            var employeeList = await _repository.ListAsync(spec);
+            var Data = _mapper.Map<List<EmployeeModel>>(employeeList);
+            return new ResponseVM<List<EmployeeModel>>()
+            {
+                Data = Data
+            };
+        }
         public async Task<ResponseVM> AddEmployee(EmployeeRequestModel employeeRequest)
         {
             var employeeEntity = _mapper.Map<Employee>(employeeRequest);
@@ -65,31 +86,9 @@ namespace Task.Infrastructure.Services
             var GetBySpec = new getEmployeeByIdSpec(id);
             var emp = await _repository.GetBySpecAsync(GetBySpec);
             if (emp == null)
-                throw new ValidationException(new ValidationFailure[] { new ValidationFailure("Get Emplyee Error", $"Employee with ID {id} : not exist") });
+                throw new ValidationException(new ValidationFailure[] { new ValidationFailure("Get Employee Error", $"Employee with ID {id} : not exist") });
             await _repository.DeleteAsync(emp);
             return true;
-        }
-
-        public async Task<ResponseVM<List<ManagerModel>>> GetManagers()
-        {
-            var spec = new getAllManagersSpec();
-            var managerList = await _repository.ListAsync(spec);
-            var Data = _mapper.Map<List<ManagerModel>>(managerList);
-            return new ResponseVM<List<ManagerModel>>()
-            {
-                Data = Data
-            };
-        }
-
-        public async Task<ResponseVM<List<EmployeeModel>>> GetFilterEmployees(string search)
-        {
-            var spec = new getFilterEmployeesSpec(search);
-            var employeeList = await _repository.ListAsync(spec);
-            var Data = _mapper.Map<List<EmployeeModel>>(employeeList);
-            return new ResponseVM<List<EmployeeModel>>()
-            {
-                Data = Data
-            };
         }
 
     }

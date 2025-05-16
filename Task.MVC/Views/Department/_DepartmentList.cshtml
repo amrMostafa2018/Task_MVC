@@ -1,0 +1,23 @@
+﻿@using Task.Application.Features.ViewModels.Department
+@model IEnumerable<DepartmentModel>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dep in Model)
+        {
+            <tr>
+                <td>@dep.Name</td>
+                <td>
+                    <button class="btn btn-sm btn-warning" onclick="editDepartment(@dep.Id)">Edit</button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteDepartment(@dep.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

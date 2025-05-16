@@ -28,8 +28,4 @@
     <ProjectReference Include="..\Task.Application\Task.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Specifications\DepartmentSpecifications\" />
-  </ItemGroup>
-
 </Project>
