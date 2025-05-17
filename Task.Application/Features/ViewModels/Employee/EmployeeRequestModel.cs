@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Task.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Task.Application.Features.ViewModels.Employee
 {
     public class EmployeeRequestModel
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "First name is required")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public decimal Salary { get; set; }

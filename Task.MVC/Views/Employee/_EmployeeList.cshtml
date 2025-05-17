@@ -24,7 +24,7 @@
                     <button class="btn btn-sm btn-danger" onclick="deleteEmployee(@emp.Id)">Delete</button>
                     @if (emp.ManagerId is null)
                     {
-                        @Html.ActionLink("Tasks", "Index", "Task", new { id = emp.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Employees Tasks", "Index", "Task", new { id = emp.Id }, new { @class = "btn btn-info" })
                     }
                 </td>
             </tr>
