@@ -1,0 +1,46 @@
+﻿@using Task.Application.Features.ViewModels.Task
+@model EmployeeTaskRequestModel
+
+<form id="employeeTaskForm">
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.ManagerCreatedById)
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("AssignedTo")
+        @Html.DropDownListFor(m => m.AssignedToId, ViewBag.Employees as SelectList, "-- Select Employee --", new { @class = "form-control" })
+    </div>
+    <br />
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">Save</button>
+    </div>
+</form>
+
+<script>
+    $("#employeeTaskForm").submit(function (e) {
+        e.preventDefault();
+        var form = $(this); 
+         var value = $("#mangerid").val();
+         form.find("input[name='ManagerCreatedById']").val(value);
+        debugger
+        $.ajax({
+            url: form.find("input[name='Id']").val() == 0 ? '/Task/Create' : '/Task/Edit',
+            method: 'POST',
+            data: form.serialize(),
+            success: function (res) {
+                if (res.success) {
+                    $('#taskModal').modal('hide');
+                    loadEmployeeTasks();
+                } else {
+                    $("#modalContent").html(res);
+                }
+            }
+        });
+    });
+</script>

@@ -13,7 +13,6 @@ namespace Task.Application.Features.ViewModels.Employee
             public Mapping()
             {
                 CreateMap<Domain.Entities.Employee, EmployeeModel>()
-                .ForMember(d => d.FullName, opt => opt.MapFrom(s => $"{s.FirstName} {s.LastName}"))
                 .ForMember(d => d.ManagerName, opt => opt.MapFrom(s => $"{s.Manager.FirstName} {s.Manager.LastName}"))
                 .ForMember(d => d.DepartmentName, opt => opt.MapFrom(s => s.Department.Name))
                 .ReverseMap();

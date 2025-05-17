@@ -1,0 +1,28 @@
+﻿@using Task.Application.Features.ViewModels.Task
+@model IEnumerable<EmployeeTaskItemModel>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Employee</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.EmployeeName</td>
+                <td>@task.Status</td>
+                <td>
+                    <button class="btn btn-sm btn-info" onclick="editTask(@task.Id)">Edit</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

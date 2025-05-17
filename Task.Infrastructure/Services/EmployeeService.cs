@@ -5,8 +5,8 @@ using Task.Application.Common.Response;
 using Task.Application.Features.ViewModels.Employee;
 using Task.Application.Interfaces;
 using Task.Domain.Entities;
-using Task.Infrastructure.Specifications.CVSpecifications;
 using FluentValidation.Results;
+using Task.Infrastructure.Specifications.EmployeeSpecifications;
 
 namespace Task.Infrastructure.Services
 {
@@ -52,6 +52,17 @@ namespace Task.Infrastructure.Services
             };
         }
 
+        public async Task<ResponseVM<List<EmployeesByManagerModel>>> GetEmployeesByManagerId(int managerId)
+        {
+            var spec = new getEmployeesByManagerIdSpec(managerId);
+            var GetBySpec = await _repository.ListAsync(spec);
+            var Data = _mapper.Map<List<EmployeesByManagerModel>>(GetBySpec);
+            return new ResponseVM<List<EmployeesByManagerModel>>()
+            {
+                Data = Data
+            };
+        }
+
         public async Task<ResponseVM<List<EmployeeModel>>> GetFilterEmployees(string search)
         {
             var spec = new getFilterEmployeesSpec(search);
@@ -90,6 +101,7 @@ namespace Task.Infrastructure.Services
             await _repository.DeleteAsync(emp);
             return true;
         }
+
 
     }
 }

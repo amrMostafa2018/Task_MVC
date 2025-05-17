@@ -5,7 +5,7 @@ using TaskStatus = Task.Domain.Common.Enums.TaskStatus;
 
 namespace Task.Domain.Entities
 {
-    public class TaskAssignment 
+    public class TaskAssignment : IAggregateRoot
     {
         public int Id { get; set; }
         [Required]

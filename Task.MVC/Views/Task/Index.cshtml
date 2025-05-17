@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Employee Tasks";
+}
+
+<h2>Employee Tasks</h2>
+<button class="btn btn-primary mb-3" onclick="createTask()">Assign New Task</button>
+<input type="hidden" id="mangerid" value="@ViewBag.managerId" />
+<div id="employeeTasksList"></div>
+
+
+<div class="modal" tabindex="-1" id="taskModal" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@ViewBag.title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalContent">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            loadEmployeeTasks();
+        });
+
+        function loadEmployeeTasks() {
+            debugger;
+            var value = $("#mangerid").val();
+            $("#employeeTasksList").load("/Task/LoadEmployeeTasks/" + value);
+        }
+
+        function createTask() {
+            var managerId = $("#mangerid").val();
+            $.get("/Task/Create?managerId=" + managerId, function (data) {
+                $("#modalContent").html(data);
+                $("#taskModal").modal("show");
+            });
+        }
+
+        function editTask(id) {
+            $.get("/Task/Edit/" + managerId, function (data) {
+                $("#modalContent").html(data);
+                $("#taskModal").modal("show");
+            });
+        }
+
+        function deleteEmployee(id) {
+            if (confirm("Are you sure?")) {
+                $.post("/Task/Delete/" + id, function (res) {
+                    if (res.success) {
+                        loadEmployees();
+                    }
+                });
+            }
+        }
+
+        function closeModal() {
+            $("#taskModal").modal("hide");
+        }
+    </script>
+}

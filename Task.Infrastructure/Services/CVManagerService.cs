@@ -1,11 +1,5 @@
 ﻿using Ardalis.SharedKernel;
-using AutoMapper;
-using Task.Application.Common.Exceptions;
-using Task.Application.Common.Response;
-using Task.Application.Features.ViewModels;
-using Task.Application.Interfaces;
-using Task.Domain.Entities;
-using Task.Infrastructure.Specifications.CVSpecifications;
+
 using FluentValidation.Results;
 
 namespace Task.Infrastructure.Services

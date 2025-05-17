@@ -7,6 +7,7 @@ namespace Task.Application.Interfaces
     {
         Task<ResponseVM<List<EmployeeModel>>> GetEmployees();
         Task<ResponseVM<EmployeeModel>> GetEmployeeById(int Id);
+        Task<ResponseVM<List<EmployeesByManagerModel>>> GetEmployeesByManagerId(int managerId);
         Task<ResponseVM<List<EmployeeModel>>> GetFilterEmployees(string search);
         Task<ResponseVM<List<ManagerModel>>> GetManagers();
         Task<ResponseVM> AddEmployee(EmployeeRequestModel employeeRequest);

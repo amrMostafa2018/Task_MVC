@@ -6,7 +6,7 @@ using Task.Application.Common.Response;
 using Task.Application.Features.ViewModels.Department;
 using Task.Application.Interfaces;
 using Task.Domain.Entities;
-using Task.Infrastructure.Specifications.CVSpecifications;
+using Task.Infrastructure.Specifications.DepartmentSpecifications;
 
 namespace Task.Infrastructure.Services
 {

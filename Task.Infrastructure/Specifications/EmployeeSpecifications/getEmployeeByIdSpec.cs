@@ -1,6 +1,6 @@
 ﻿using Ardalis.Specification;
 using Task.Domain.Entities;
-namespace Task.Infrastructure.Specifications.CVSpecifications
+namespace Task.Infrastructure.Specifications.EmployeeSpecifications
 {
     public class getEmployeeByIdSpec : Specification<Employee>
     {
